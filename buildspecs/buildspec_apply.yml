@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Downloading and installing Terraform..."
+      - curl -o terraform.zip https://releases.hashicorp.com/terraform/1.9.5/terraform_1.9.5_linux_amd64.zip
+      - unzip terraform.zip
+      - mv terraform /usr/local/bin/
+      # - sudo yum install -y yum-utils shadow-utils
+      # - sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+      # - sudo yum -y install terraform
+      - terraform --version  # Verify Terraform installation
+  pre_build:
+    commands:
+      - echo "Terraform execution started on `date`"
+      - echo "Current working directory $(pwd)"
+      - ls -la
+
+  build:
+    commands:
+      - echo "Copying backend configuration"
+      - cp $ENV_DIR/backend.tf .
+      - ls
+      - terraform init
+      # - terraform apply -var-file=$ENV_DIR/terraform.tfvars
+      # - TF_LOG=DEBUG terraform apply -var-file=$ENV_DIR/terraform.tfvars -auto-approve 
+      - terraform apply -var-file=$ENV_DIR/terraform.tfvars -auto-approve 
+
+artifacts:
+  files:
+    - $ENV_DIR/**/*
+  name: terraform-apply-artifact

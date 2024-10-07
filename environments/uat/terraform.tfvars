@@ -1,0 +1,8 @@
+aws_region           = "us-east-1"
+assume_role_arn      = "arn:aws:iam::891377117055:role/pw-role-uat-crossaccount_infra_role"
+env                  = "uat"
+vpc_cidr_block       = "10.1.0.0/16"
+public_subnet_az1_cidr  = "10.1.1.0/24"
+public_subnet_az2_cidr  = "10.1.2.0/24"
+private_subnet_az1_cidr = "10.1.3.0/24"
+private_subnet_az2_cidr = "10.1.4.0/24"
